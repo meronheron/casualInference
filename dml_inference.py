@@ -27,3 +27,11 @@ t_learner.fit(X, T, y)
 ate = t_learner.estimate_ate(X, T, y)
 print(f"Average Treatment Effect (ATE): {ate[0].item():.2f}")
 print(f"ATE 95% Confidence Interval: [{ate[1].item():.2f}, {ate[2].item():.2f}]")
+
+# CATE estimate individual treatment effects) for each observation
+cate = t_learner.predict(X, T, y)
+#creates a DataFrame to organize CATE estimates and treatment status (T) for plotting.
+cate_df = pd.DataFrame({
+    'CATE': cate.flatten(),
+    'Treatment': T
+})
