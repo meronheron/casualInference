@@ -37,7 +37,11 @@ cate_df = pd.DataFrame({
 })
 # Plotting CATE estimates
 plt.figure(figsize=(10, 6))
-sns.kdeplot(data=cate_df[cate_df['Treatment'] == 1]['CATE'], label='Treated (UK)', color='blue')
-sns.kdeplot(data=cate_df[cate_df['Treatment'] == 0]['CATE'], label='Control (non-UK)', color='orange')
-plt.axvline(x=ate[0].item(), color='red', linestyle='--', label=f'ATE = {ate[0].item():.2f}')
-
+sns.kdeplot(data=cate_df[cate_df['Treatment'] == 1]['CATE'], label='Treated (UK)', color='green', linewidth=1)
+sns.kdeplot(data=cate_df[cate_df['Treatment'] == 0]['CATE'], label='Control (non-UK)', color='blue', linewidth=1)
+plt.axvline(x=ate[0].item(), color='red', linestyle='--',linewidth=1, label=f'ATE = {ate[0].item():.2f}')
+plt.title('CATE Distribution for Treated and Control Groups')
+plt.xlabel('CATE (Effect of UK vs. non-UK on Purchase Amount)')
+plt.ylabel('Density')
+plt.legend()
+plt.show()
