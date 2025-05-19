@@ -35,3 +35,9 @@ cate_df = pd.DataFrame({
     'CATE': cate.flatten(),
     'Treatment': T
 })
+# Plotting CATE estimates
+plt.figure(figsize=(10, 6))
+sns.kdeplot(data=cate_df[cate_df['Treatment'] == 1]['CATE'], label='Treated (UK)', color='blue')
+sns.kdeplot(data=cate_df[cate_df['Treatment'] == 0]['CATE'], label='Control (non-UK)', color='orange')
+plt.axvline(x=ate[0].item(), color='red', linestyle='--', label=f'ATE = {ate[0].item():.2f}')
+
