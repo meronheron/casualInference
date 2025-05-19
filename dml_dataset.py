@@ -21,3 +21,8 @@ df["Y"] = df["Quantity"] * df["Price"]
 covariates = ["Quantity", "Price"]
 controls = ["Customer ID"]
 df = df[covariates + controls + ["T", "Y"]]
+# save processed dataset
+df.to_csv("dml_kaggle.csv", index=False)
+
+# verify
+print("Saved dml_kaggle.csv with", len(df), "rows. Columns:", df.columns.tolist())
