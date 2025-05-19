@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 from causalml.inference.meta import BaseTLearner
 from sklearn.ensemble import RandomForestRegressor
-
+import seaborn as sns
+import matplotlib.pyplot as plt
 # setting random seed for reproducibility
 np.random.seed(42)
 
