@@ -6,38 +6,38 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def run_dml_inference():
-    # Set random seed for reproducibility
+    # setting random seed for reproducibility
     np.random.seed(42)
 
-    # Load dataset
+    # loading the csv dataset
     df = pd.read_csv("dml_kaggle.csv")
 
-    # Define features, treatment, and outcome
+    # define features, treatment, and outcome
     X = df[["Quantity", "Price", "Customer ID"]]
     T = df["T"]
     y = df["Y"]
 
-    # Initialize BaseTLearner
+    # initialize BaseTLearner
     t_learner = BaseTLearner(
         learner=RandomForestRegressor(n_estimators=100, random_state=42)
     )
 
-    # Fit BaseTLearner
+    # fitting BaseTLearner
     t_learner.fit(X, T, y)
 
-    # Estimate ATE
+    # estimate ATE
     ate = t_learner.estimate_ate(X, T, y)
 
-    # Estimate CATE
+    # estimate CATE
     cate = t_learner.predict(X, T, y)
 
-    # Create DataFrame for CATE estimates
+    # create DataFrame for CATE estimates
     cate_df = pd.DataFrame({
         'CATE': cate.flatten(),
         'Treatment': T
     })
 
-    # Create plot
+    # plot
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.kdeplot(data=cate_df[cate_df['Treatment'] == 1]['CATE'], label='Treated (UK)', color='green', linewidth=1, ax=ax)
     sns.kdeplot(data=cate_df[cate_df['Treatment'] == 0]['CATE'], label='Control (non-UK)', color='blue', linewidth=1, ax=ax)
@@ -47,7 +47,7 @@ def run_dml_inference():
     plt.ylabel('Density')
     plt.legend()
 
-    # Prepare output
+    # prepare output
     output = f"Average Treatment Effect (ATE): {ate[0].item():.2f}\nATE 95% Confidence Interval: [{ate[1].item():.2f}, {ate[2].item():.2f}]"
     
     return fig, output
