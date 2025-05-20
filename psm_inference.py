@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def run_psm_inference():
-    # Set random seed for reproducibility
+    # setting random seed for reproducibility
     np.random.seed(42)
 
-    # Load preprocessed dataset
+    # loading preprocessed dataset
     data = pd.read_csv("lalonde_preprocessed.csv")
 
-    # Define treatment, outcome, and covariates
+    # define treatment, outcome, and covariates
     treatment = "treat"
     outcome = "re78"
     covariates = ["age", "educ", "black", "hispan", "married", "nodegree", "re74", "re75"]
@@ -21,18 +21,18 @@ def run_psm_inference():
     psm = NearestNeighborMatch(replace=True, random_state=42)
     matched_data = psm.match(data=data, treatment_col=treatment, score_cols=covariates)
 
-    # Calculate ATE
+    # calculate ATE
     treated = matched_data[matched_data[treatment] == 1]
     control = matched_data[matched_data[treatment] == 0]
     ate = treated[outcome].mean() - control[outcome].mean()
 
-    # Calculate propensity scores
+    # calculate propensity scores
     lr = LogisticRegression(random_state=42)
     lr.fit(data[covariates], data[treatment])
     data["propensity_score"] = lr.predict_proba(data[covariates])[:, 1]
     matched_data["propensity_score"] = lr.predict_proba(matched_data[covariates])[:, 1]
 
-    # Create plot
+    # plot
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.kdeplot(data=data[data[treatment] == 1]["propensity_score"], label="Treated (Before)", color="blue", ax=ax)
     sns.kdeplot(data=data[data[treatment] == 0]["propensity_score"], label="Control (Before)", color="orange", ax=ax)
@@ -43,7 +43,7 @@ def run_psm_inference():
     plt.ylabel("Density")
     plt.legend()
 
-    # Prepare output
+    # prepare output
     output = f"Estimated ATE: {ate:.2f}\nMatched data has {len(matched_data)} rows. Columns: {matched_data.columns.tolist()}"
     
     return fig, output
