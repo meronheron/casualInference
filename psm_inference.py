@@ -38,7 +38,7 @@ def run_psm_inference():
     sns.kdeplot(data=data[data[treatment] == 0]["propensity_score"], label="Control (Before)", color="orange", ax=ax)
     sns.kdeplot(data=matched_data[matched_data[treatment] == 1]["propensity_score"], label="Treated (After)", color="blue", linestyle="--", ax=ax)
     sns.kdeplot(data=matched_data[matched_data[treatment] == 0]["propensity_score"], label="Control (After)", color="orange", linestyle="--", ax=ax)
-    plt.title("Propensity Score Distribution Before and After Matching")
+    plt.title("Propensity score distribution before and after matching")
     plt.xlabel("Propensity Score")
     plt.ylabel("Density")
     plt.legend()
