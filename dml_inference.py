@@ -12,7 +12,7 @@ def run_dml_inference():
     # loading the csv dataset
     df = pd.read_csv("dml_kaggle.csv")
 
-    # define features, treatment, and outcome
+    # define covariates, treatment, and outcome
     X = df[["Quantity", "Price", "Customer ID"]]
     T = df["T"]
     y = df["Y"]
