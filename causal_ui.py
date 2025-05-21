@@ -48,7 +48,7 @@ def main():
             st.pyplot(fig)
             st.text(output)
             st.markdown("""
-                **What’s Happening?**  
+                **What’s happening?**  
                 For the dataset, we’re examining how being in the UK (the treatment) affects total purchase amounts. The treatment group consists of UK customers, while the control group includes non-UK customers. We considered confounding variables like purchase quantity, price, and customer ID, which could influence both location and spending. Using Double Machine Learning (DML), we estimate the treatment’s impact while controlling for these variables. The plot shows the distribution of individual treatment effects (CATE) for both groups, and the Average Treatment Effect (ATE) indicates the average difference in purchase amounts due to being in the UK.
             """)
             plt.close(fig)  # Close figure to free memory
