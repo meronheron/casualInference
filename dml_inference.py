@@ -33,7 +33,7 @@ def run_dml_inference():
 
     # create DataFrame for CATE estimates
     cate_df = pd.DataFrame({
-        'CATE': cate.flatten(),
+        'CATE': cate.flatten(),#stores individual treatment effects in a column named CATE.
         'Treatment': T
     })
 
