@@ -13,9 +13,9 @@ def run_dml_inference():
     df = pd.read_csv("dml_kaggle.csv")
 
     # define covariates, treatment, and outcome
-    X = df[["Quantity", "Price", "Customer ID"]]
-    T = df["T"]
-    y = df["Y"]
+    X = df[["Quantity", "Price", "Customer ID"]]#covariates
+    T = df["T"]#Treatment
+    y = df["Y"]#outcome
 
     # initialize BaseTLearner
     t_learner = BaseTLearner(

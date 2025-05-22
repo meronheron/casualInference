@@ -17,7 +17,7 @@ df["T"] = (df["Country"] == "United Kingdom").astype(int)
 # create outcome (Y: total purchase amount = Quantity * Price)
 df["Y"] = df["Quantity"] * df["Price"]
 
-# Select covariates (X) and controls (W)
+# Select covariates (X) and controls (T)
 covariates = ["Quantity", "Price"]
 controls = ["Customer ID"]
 df = df[covariates + controls + ["T", "Y"]]
