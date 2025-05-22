@@ -30,6 +30,7 @@ def run_dml_inference():
 
     # estimate CATE
     cate = t_learner.predict(X, T, y)
+    #CATE = Predicted y (T = 1) - Predicted y (T = 0).
 
     # create DataFrame for CATE estimates
     cate_df = pd.DataFrame({
